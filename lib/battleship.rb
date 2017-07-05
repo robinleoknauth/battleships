@@ -5,10 +5,10 @@ require_relative "player.rb"
 class BattleshipGame
   attr_reader :board, :player
 
-  def initialize(board = Board.new, player = HumanPlayer.new)
+  def initialize(player = HumanPlayer.new, board = Board.new)
 
-    @board = Board.new
-    @player = HumanPlayer.new
+    @board = board
+    @player = player
     2.times { @board.place_random_ship }
 
   end
@@ -26,6 +26,11 @@ class BattleshipGame
       @board[pos] = :x
     end
   end
+
+  # def attack(pos)
+  #   x, y = pos.first, pos.last
+  #   @board.grid[x][y] = :x
+  # end
 
   def game_over?
     @board.won?
@@ -56,7 +61,7 @@ end
 
 
 if $0 == __FILE__
-  # player = HumanPlayer.new
-  # board = Board.new
+  player = HumanPlayer.new
+  board = Board.new
   BattleshipGame.new.play
 end
