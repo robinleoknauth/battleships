@@ -7,7 +7,7 @@ class HumanPlayer
 
   def get_play
     puts "Where would you like to fire?"
-    
+    p gets.chomp
     gets.chomp.split(",").map(&:to_i)
   end
 end
