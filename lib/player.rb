@@ -12,18 +12,15 @@ class HumanPlayer
     # [1, 1]#gets.chomp
     gets.chomp.split(",").map(&:to_i)
   end
+
+  def display(board)
+  end
 end
 
 class ComputerPlayer
   attr_reader :board
 
-  # def initialize
-  #
-  # end
 
-  # def initialize(board)
-  #   @board = board
-  # end
 
   def display(board)
     @board = board

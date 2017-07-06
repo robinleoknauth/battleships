@@ -1,8 +1,67 @@
 class Board
   attr_accessor :grid
 
+  SHIPS = {
+    aircraft_carrier: 5,
+    battleship: 4,
+    destroyer: 3,
+    patrol_boat: 2
+  }
+
   def initialize(grid = self.class.default_grid)
     @grid = grid
+  end
+
+  def random_ship
+    SHIPS[SHIPS.keys.sample]
+  end
+
+  def extend_ship(position, direction = nil, size = nil)
+    possible_ships = []
+    x, y = position
+    if direction == nil
+      orientation = random_direction
+    end
+    if size.nil?
+      size = random_ship
+    end
+    if orientation == "n"
+      (size - 1).times do
+        x -= 1
+        possible_ships << [x, y]
+      end
+
+    elsif orientation == "s"
+      (size - 1).times do
+        x += 1
+        possible_ships << [x, y]
+      end
+
+    elsif orientation == "e"
+      (size - 1).times do
+        y += 1
+        possible_ships << [x, y]
+      end
+
+    else
+      (size - 1).times do
+        y -= 1
+        possible_ships << [x, y]
+      end
+    end
+
+    if possible_ships.all? { |pos| board[pos].nil? } &&
+      x.between?(0, board.grid.length) &&
+      y.between?(0, board.grid.length)
+      possible_ships.each { |pos| board[pos] = :s }
+      return true
+    else
+      return false
+    end
+  end
+
+  def random_direction
+    ["n", "s", "e", "w"].sample
   end
 
   def self.default_grid
@@ -10,8 +69,7 @@ class Board
   end
 
   def count
-    # grid.flatten.count(&:nil?) # cannot put the ! anywhere.
-    # nil isnt the right thing to look for but interesting problem
+
     grid.flatten.count { |el| el == :s }
   end
 
