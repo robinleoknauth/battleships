@@ -53,12 +53,17 @@ class Board
   end
 
   def display_board
+    # the print ships is disabled. can be enabled for testing
     print "_" * @grid.length * 7
     puts ""
     @grid.each do |row|
       row.each do |pos|
         if pos == :x
           print " | x | "
+        elsif pos == :o
+          print " | o | "
+        # elsif pos == :s
+        #   print " | s | "
         else
           print " |   | "
         end

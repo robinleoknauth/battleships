@@ -23,13 +23,16 @@ class BattleshipGame
       @board[pos] = :x
       puts "BAM! You hit a ship!"
     else
-      @board[pos] = :x
+      @board[pos] = :o
     end
   end
 
-  # def attack(pos)
-  #   x, y = pos.first, pos.last
-  #   @board.grid[x][y] = :x
+  # def setup
+  #   puts "Would you like to play solo against a Computer?"
+  #   input = gets.chomp.downcase.split('').first
+  #   if input == "y"
+  #     play
+  #   end
   # end
 
   def game_over?
@@ -38,7 +41,6 @@ class BattleshipGame
 
   def play_turn
     pos = player.get_play
-    # pos = [1, 1]
     attack(pos)
   end
 
@@ -48,6 +50,7 @@ class BattleshipGame
   end
 
   def play
+    @player.display(board)
     board.display_board
     while !game_over?
       play_turn
@@ -61,7 +64,12 @@ end
 
 
 if $0 == __FILE__
-  player = HumanPlayer.new
-  board = Board.new
-  BattleshipGame.new.play
+  puts "Would you like to play solo against a Computer?"
+  input = gets.chomp.downcase.split('').first
+  if input == "y"
+    BattleshipGame.new.play
+  else
+    # BattleshipGame.new(ComputerPlayer.new, Board.new).play
+    BattleshipGame.new(ComputerPlayer.new, Board.new).play
+  end
 end
