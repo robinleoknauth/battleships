@@ -10,6 +10,7 @@ class Board
 
   def initialize(grid = self.class.default_grid)
     @grid = grid
+    @initial_ships = []
   end
 
   def random_ship
@@ -17,6 +18,7 @@ class Board
   end
 
   def extend_ship(position, direction = nil, size = nil)
+    # this should be option hash, will change it later
     possible_ships = []
     x, y = position
     if direction == nil
@@ -50,13 +52,27 @@ class Board
       end
     end
 
-    if possible_ships.all? { |pos| board[pos].nil? } &&
-      x.between?(0, board.grid.length) &&
-      y.between?(0, board.grid.length)
-      possible_ships.each { |pos| board[pos] = :s }
+    if possible_ships.all? { |pos| self[pos].nil? } &&
+      x.between?(0, @grid.length) &&
+      y.between?(0, @grid.length)
+      possible_ships.each { |pos| self[pos] = :s }
       return true
     else
       return false
+    end
+  end
+
+  def setup(ship_count = nil)
+    if ship_count.nil?
+      ship_count = 5
+    end
+    ship_count.times do
+      place_random_ship
+    end
+    @initial_ships.each do |pos|
+      until extend_ship(pos)
+        next
+      end
     end
   end
 
@@ -102,6 +118,7 @@ class Board
       pos = [rand(grid.length), rand(grid.length)]
       if empty?(pos)
         grid[pos[0]][pos[1]] = :s
+        @initial_ships << pos
       end
     end
   end
@@ -120,8 +137,8 @@ class Board
           print " | x | "
         elsif pos == :o
           print " | o | "
-        # elsif pos == :s
-        #   print " | s | "
+        elsif pos == :s
+          print " | s | "
         else
           print " |   | "
         end

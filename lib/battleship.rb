@@ -9,7 +9,7 @@ class BattleshipGame
 
     @board = board
     @player = player
-    2.times { @board.place_random_ship }
+    # 2.times { @board.place_random_ship }
 
   end
 
@@ -50,6 +50,7 @@ class BattleshipGame
   end
 
   def play
+    @board.setup
     @player.display(board)
     board.display_board
     while !game_over?
