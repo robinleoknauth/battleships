@@ -1,5 +1,6 @@
 require_relative "board.rb"
 require_relative "player.rb"
+# require "byebug"
 
 
 class BattleshipGame
@@ -9,7 +10,7 @@ class BattleshipGame
 
     @board = board
     @player = player
-    # 2.times { @board.place_random_ship }
+
 
   end
 
@@ -18,7 +19,7 @@ class BattleshipGame
   end
 
   def attack(pos)
-    # should raise Error here if there is an invalid input
+
     if board[pos] == :s
       @board[pos] = :x
       puts "BAM! You hit a ship!"
@@ -27,13 +28,7 @@ class BattleshipGame
     end
   end
 
-  # def setup
-  #   puts "Would you like to play solo against a Computer?"
-  #   input = gets.chomp.downcase.split('').first
-  #   if input == "y"
-  #     play
-  #   end
-  # end
+
 
   def game_over?
     @board.won?
@@ -50,6 +45,7 @@ class BattleshipGame
   end
 
   def play
+    # debugger
     @board.setup
     @player.display(board)
     board.display_board
@@ -70,7 +66,7 @@ if $0 == __FILE__
   if input == "y"
     BattleshipGame.new.play
   else
-    # BattleshipGame.new(ComputerPlayer.new, Board.new).play
+
     BattleshipGame.new(ComputerPlayer.new, Board.new).play
   end
 end

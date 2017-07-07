@@ -51,12 +51,13 @@ class Board
         possible_ships << [x, y]
       end
     end
-
-    if possible_ships.all? { |pos| self[pos].nil? } &&
-      x.between?(0, @grid.length) &&
-      y.between?(0, @grid.length)
-      possible_ships.each { |pos| self[pos] = :s }
-      return true
+    if x.between?(0, @grid.length - 1) && y.between?(0, @grid.length - 1)
+      if possible_ships.all? { |pos| self[pos].nil? } &&
+        possible_ships.each { |pos| self[pos] = :s }
+        return true
+      else
+        return false
+      end
     else
       return false
     end
@@ -134,13 +135,13 @@ class Board
     @grid.each do |row|
       row.each do |pos|
         if pos == :x
-          print " | x | "
+          print "| x |"
         elsif pos == :o
-          print " | o | "
+          print "| o |"
         elsif pos == :s
-          print " | s | "
+          print "| s |"
         else
-          print " |   | "
+          print "|   |"
         end
       end
       print "\n"
