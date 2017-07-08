@@ -33,7 +33,7 @@ class ComputerPlayer
   end
 
   def find_possible_shots
-    # @possible_shots = []
+    @possible_shots = []
     (0...board.grid.length).each do |y|
       (0...board.grid.length).each do |x|
         pos = [x, y]
