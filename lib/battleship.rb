@@ -36,6 +36,7 @@ class BattleshipGame
 
   def play_turn
     pos = player.get_play
+    p pos
     attack(pos)
   end
 
@@ -46,13 +47,17 @@ class BattleshipGame
 
   def play
     # debugger
+    counter = 0
     @board.setup
     @player.display(board)
     board.display_board
+    
     while !game_over?
       play_turn
       display_status
+      counter += 1
     end
+    puts "It took you #{counter} shots to sink the enemys fleet."
   end
 
 

@@ -130,7 +130,7 @@ class Board
 
   def display_board
     # the print ships is disabled. can be enabled for testing
-    print "_" * @grid.length * 7
+    print "_" * @grid.length * 4
     puts ""
     @grid.each do |row|
       row.each do |pos|
@@ -145,6 +145,7 @@ class Board
         end
       end
       print "\n"
+
     end
   end
 
